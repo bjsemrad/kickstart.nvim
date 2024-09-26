@@ -43,19 +43,6 @@ What is Kickstart?
 
 Kickstart Guide:
 
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
-
   Next, run AND READ `:help`.
     This will open up a help window with some basic information
     about reading, navigating and searching the builtin help documentation.
@@ -70,18 +57,7 @@ Kickstart Guide:
     These are hints about where to find more information about the relevant settings,
     plugins or Neovim features used in Kickstart.
 
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
 If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
 -- Set <space> as the leader key
@@ -91,7 +67,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -185,11 +161,33 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<CA-Left>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<CA-Right>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<CA-Down>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<CA-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set('n', '<leader>c/', 'gcc', { desc = 'Toggle Comment', remap = true })
+vim.keymap.set('v', '<leader>c/', 'gc', { desc = 'Toggle comment', remap = true })
+
+vim.keymap.set('n', '<C-/>', 'gcc', { desc = 'Toggle Comment', remap = true })
+vim.keymap.set('v', '<C-/>', 'gc', { desc = 'Toggle comment', remap = true })
+
+vim.keymap.set('n', '<C-b>x', ':bd<CR>', { desc = 'Close Buffer' })
+vim.keymap.set('v', '<C-b>x', ':bd<CR>', { desc = 'Close Buffer' })
+
+vim.keymap.set('n', '<C-b>n', ':bn<CR>', { desc = 'Next Buffer' })
+vim.keymap.set('v', '<C-b>n', ':bn<CR>', { desc = 'Next Buffer' })
+
+vim.keymap.set('n', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
+vim.keymap.set('v', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
+
+vim.keymap.set('v', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
+
+vim.keymap.set('v', '<C-Up>', ':m -2<CR>', { desc = 'Move Line Up' })
+vim.keymap.set('n', '<C-Up>', ':m -2<CR>', { desc = 'Move Line Up' })
+
+vim.keymap.set('v', '<C-Down>', ':m +1<CR>', { desc = 'Move Line Down' })
+vim.keymap.set('n', '<C-Down>', ':m +1<CR>', { desc = 'Move Line Down' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -226,22 +224,10 @@ vim.opt.rtp:prepend(lazypath)
 --  To update plugins you can run
 --    :Lazy update
 --
--- NOTE: Here is where you install your plugins.
 require('lazy').setup({
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  --
   -- Use `opts = {}` to force a plugin to be loaded.
-  --
 
-  -- Here is a more advanced example where we pass configuration
-  -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
-  --    require('gitsigns').setup({ ... })
-  --
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -255,21 +241,6 @@ require('lazy').setup({
       },
     },
   },
-
-  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
-  --
-  -- This is often very useful to both group configuration, as well as handle
-  -- lazy loading plugins that don't need to be loaded immediately at startup.
-  --
-  -- For example, in the following configuration, we use:
-  --  event = 'VimEnter'
-  --
-  -- which loads which-key before all the UI elements are loaded. Events can be
-  -- normal autocommands events (`:help autocmd-events`).
-  --
-  -- Then, because we use the `config` key, the configuration only runs
-  -- after the plugin has been loaded:
-  --  config = function() ... end
 
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
@@ -395,7 +366,7 @@ require('lazy').setup({
         },
       }
 
-      -- Enable Telescope extensions if they are installed
+      -- Enable Telescope etensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
 
@@ -421,7 +392,7 @@ require('lazy').setup({
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
-      -- It's also possible to pass additional configuration options.
+      -- It's also possible  to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
         builtin.live_grep {
@@ -459,6 +430,7 @@ require('lazy').setup({
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'nvim-java/nvim-java',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -468,13 +440,6 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      -- Brief aside: **What is LSP?**
-      --
-      -- LSP is an initialism you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
       -- In general, you have a "server" which is some tool built to understand a particular
       -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
       -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
@@ -541,13 +506,11 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          -- <leader>ca
+          map('<C-k>', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x', 'i' })
 
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-          -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
           --
@@ -605,10 +568,36 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
+        clangd = {
+          cmd = { '/etc/profiles/per-user/brian/bin/clangd' },
+        },
+        --  clangd = {
+        --   mason = false,
+        -- },
+        gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
+        cmake = {},
+        csharp_ls = {},
+        cssls = {},
+        docker_compose_language_service = {},
+        dockerls = {},
+        gradle_ls = {},
+        helm_ls = {},
+        html = {},
+        htmx = {},
+        jdtls = {},
+        jsonls = {},
+        kotlin_language_server = {},
+        markdown_oxide = {},
+        nil_ls = {},
+        terraformls = {},
+        yamlls = {},
+        zls = {},
+        regols = {},
+        cpptools = {},
+        codelldb = {},
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -660,9 +649,59 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+          jdtls = function()
+            require('java').setup {
+              jdk = {
+                auto_install = false,
+              },
+            }
+
+            require('lspconfig').jdtls.setup {}
+          end,
         },
       }
     end,
+  },
+  { -- rusttooling
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+    config = function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      -- vim.keymap.set('n', '<leader>a', function()
+      --   vim.cmd.RustLsp 'codeAction' -- supports rust-analyzer's grouping
+      --   -- or vim.lsp.buf.codeAction() if you don't want grouping.
+      -- end, { silent = true, buffer = bufnr })
+      vim.keymap.set(
+        'n',
+        'K', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+        function()
+          vim.cmd.RustLsp { 'hover', 'actions' }
+        end,
+        { silent = true, buffer = bufnr }
+      )
+
+      vim.api.nvim_create_autocmd('BufEnter', {
+        pattern = '*.rs',
+        callback = function()
+          vim.fn.jobstart('cargo watch -x build', {
+            on_stdout = function(_, data)
+              for _, line in ipairs(data) do
+                print(line)
+              end
+            end,
+            on_stderr = function(_, data)
+              for _, line in ipairs(data) do
+                print(line)
+              end
+            end,
+          })
+        end,
+      })
+    end,
+  },
+  {
+    'mfussenegger/nvim-dap',
   },
 
   { -- Autoformat
@@ -775,7 +814,8 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          --  C-y
+          ['<a-cr>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
@@ -786,7 +826,7 @@ require('lazy').setup({
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
           --  completions whenever it has completion options available.
-          ['<C-Space>'] = cmp.mapping.complete {},
+          ['<A-Space>'] = cmp.mapping.complete {},
 
           -- Think of <c-l> as moving to the right of your snippet expansion.
           --  So if you have a snippet that's like:
@@ -823,7 +863,19 @@ require('lazy').setup({
       }
     end,
   },
-
+  {
+    'bjsemrad/onedark.nvim',
+    priority = 1000, -- Ensure it loads first
+    config = function()
+      require('onedark').setup {
+        -- Main options --
+        style = 'darker',
+      }
+    end,
+    init = function()
+      vim.cmd.colorscheme 'onedark'
+    end,
+  },
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -831,17 +883,127 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
+    -- init = function()
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   vim.cmd.colorscheme 'tokyonight-night'
+    --
+    --   -- You can configure highlights by doing something like:
+    --   vim.cmd.hi 'Comment gui=none'
+    -- end,
   },
 
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    flavour = 'mocha',
+    config = function()
+      require('catppuccin').setup {
+        color_overrides = {
+          mocha = {
+            base = '#11111b',
+            mantle = '#11111b',
+            crust = '#11111b',
+          },
+        },
+      }
+    end,
+    -- init = function()
+    --   vim.cmd.colorscheme 'catppuccin'
+    -- end,
+  },
+
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    variant = 'main',
+    priority = 1000,
+    enable = { terminal = true },
+    config = function()
+      require('rose-pine').setup {
+        variant = 'auto', -- auto, main, moon, or dawn
+        dark_variant = 'main', -- main, moon, or dawn
+        dim_inactive_windows = false,
+        extend_background_behind_borders = true,
+
+        enable = {
+          terminal = true,
+          legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+          migrations = true, -- Handle deprecated options automatically
+        },
+
+        styles = {
+          bold = true,
+          italic = true,
+          transparency = true,
+        },
+
+        groups = {
+          border = 'muted',
+          link = 'iris',
+          panel = 'surface',
+
+          error = 'love',
+          hint = 'iris',
+          info = 'foam',
+          note = 'pine',
+          todo = 'rose',
+          warn = 'gold',
+
+          git_add = 'foam',
+          git_change = 'rose',
+          git_delete = 'love',
+          git_dirty = 'rose',
+          git_ignore = 'muted',
+          git_merge = 'iris',
+          git_rename = 'pine',
+          git_stage = 'iris',
+          git_text = 'rose',
+          git_untracked = 'subtle',
+
+          h1 = 'iris',
+          h2 = 'foam',
+          h3 = 'rose',
+          h4 = 'gold',
+          h5 = 'pine',
+          h6 = 'foam',
+        },
+
+        palette = {
+          main = {
+            pine = '#3E8FB0',
+          },
+          -- Override the builtin palette per variant
+          -- moon = {
+          --     base = '#18191a',
+          --     overlay = '#363738',
+          -- },
+        },
+
+        highlight_groups = {
+          -- Comment = { fg = "foam" },
+          -- VertSplit = { fg = "muted", bg = "muted" },
+        },
+
+        before_highlight = function(group, highlight, palette)
+          -- Disable all undercurls
+          -- if highlight.undercurl then
+          --     highlight.undercurl = false
+          -- end
+          --
+          -- Change palette colour
+          -- if highlight.fg == palette.pine then
+          --   highlight.fg = palette.love
+          -- end
+        end,
+      }
+    end,
+    -- init = function()
+    --   vim.cmd.colorscheme 'rose-pine'
+    -- end,
+  },
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -888,7 +1050,27 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'java',
+        'go',
+        'cpp',
+        'rego',
+        'kotlin',
+        'sql',
+        'nix',
+      },
+
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -917,11 +1099,11 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -929,7 +1111,7 @@ require('lazy').setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
