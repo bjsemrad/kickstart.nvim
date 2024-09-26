@@ -43,19 +43,6 @@ What is Kickstart?
 
 Kickstart Guide:
 
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
-
   Next, run AND READ `:help`.
     This will open up a help window with some basic information
     about reading, navigating and searching the builtin help documentation.
@@ -70,18 +57,7 @@ Kickstart Guide:
     These are hints about where to find more information about the relevant settings,
     plugins or Neovim features used in Kickstart.
 
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
 If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
 -- Set <space> as the leader key
@@ -91,7 +67,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -190,6 +166,8 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set('n', '<leader>c/', 'gcc', { desc = 'Toggle Comment', remap = true })
+vim.keymap.set('v', '<leader>c/', 'gc', { desc = 'Toggle comment', remap = true })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -395,7 +373,7 @@ require('lazy').setup({
         },
       }
 
-      -- Enable Telescope extensions if they are installed
+      -- Enable Telescope etensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
 
@@ -421,7 +399,7 @@ require('lazy').setup({
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
-      -- It's also possible to pass additional configuration options.
+      -- It's also possible  to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
         builtin.live_grep {
@@ -468,13 +446,6 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      -- Brief aside: **What is LSP?**
-      --
-      -- LSP is an initialism you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
       -- In general, you have a "server" which is some tool built to understand a particular
       -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
       -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
@@ -543,11 +514,8 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-          -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
           --
@@ -605,10 +573,29 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
+        clangd = {},
+        gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
+        cmake = {},
+        csharp_ls = {},
+        cssls = {},
+        docker_compose_language_service = {},
+        dockerls = {},
+        gradle_ls = {},
+        helm_ls = {},
+        html = {},
+        htmx = {},
+        jdtls = {},
+        jsonls = {},
+        kotlin_language_server = {},
+        markdown_oxide = {},
+        nil_ls = {},
+        terraformls = {},
+        yamlls = {},
+        zls = {},
+        regols = {},
+
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -775,7 +762,8 @@ require('lazy').setup({
           -- Accept ([y]es) the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<C-y>'] = cmp.mapping.confirm { select = true },
+          --  C-y
+          ['<a-cr>'] = cmp.mapping.confirm { select = true },
 
           -- If you prefer more traditional completion keymaps,
           -- you can uncomment the following lines
@@ -823,7 +811,14 @@ require('lazy').setup({
       }
     end,
   },
-
+  -- Autopairs
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
+  },
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -831,14 +826,23 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
+    -- init = function()
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   vim.cmd.colorscheme 'tokyonight-night'
+    --
+    --   -- You can configure highlights by doing something like:
+    --   vim.cmd.hi 'Comment gui=none'
+    -- end,
+  },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
+    flavour = 'mocha',
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
 
@@ -888,7 +892,27 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'java',
+        'go',
+        'cpp',
+        'rego',
+        'kotlin',
+        'sql',
+        'nix',
+      },
+
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
