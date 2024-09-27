@@ -172,8 +172,11 @@ vim.keymap.set('v', '<leader>c/', 'gc', { desc = 'Toggle comment', remap = true 
 vim.keymap.set('n', '<leader>x', ':bd<CR>', { desc = 'Close Buffer' })
 vim.keymap.set('v', '<leader>x', ':bd<CR>', { desc = 'Close Buffer' })
 
-vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { desc = 'Open / Close Neotree' })
-vim.keymap.set('v', '<leader>e', ':Neotree toggle<CR>', { desc = 'Open / Close Neotree' })
+vim.keymap.set('n', '<leader>dn', ':bn<CR>', { desc = 'Next Buffer' })
+vim.keymap.set('v', '<leader>dn', ':bn<CR>', { desc = 'Next Buffer' })
+
+vim.keymap.set('n', '<leader>dp', ':bp<CR>', { desc = 'Previous Buffer' })
+vim.keymap.set('v', '<leader>dp', ':bp<CR>', { desc = 'Previous Buffer' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
