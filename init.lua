@@ -169,14 +169,14 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 vim.keymap.set('n', '<leader>c/', 'gcc', { desc = 'Toggle Comment', remap = true })
 vim.keymap.set('v', '<leader>c/', 'gc', { desc = 'Toggle comment', remap = true })
 
-vim.keymap.set('n', '<leader>x', ':bd<CR>', { desc = 'Close Buffer' })
-vim.keymap.set('v', '<leader>x', ':bd<CR>', { desc = 'Close Buffer' })
+vim.keymap.set('n', '<C-b>x', ':bd<CR>', { desc = 'Close Buffer' })
+vim.keymap.set('v', '<C-b>x', ':bd<CR>', { desc = 'Close Buffer' })
 
-vim.keymap.set('n', '<leader>dn', ':bn<CR>', { desc = 'Next Buffer' })
-vim.keymap.set('v', '<leader>dn', ':bn<CR>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '<C-b>n', ':bn<CR>', { desc = 'Next Buffer' })
+vim.keymap.set('v', '<C-b>n', ':bn<CR>', { desc = 'Next Buffer' })
 
-vim.keymap.set('n', '<leader>dp', ':bp<CR>', { desc = 'Previous Buffer' })
-vim.keymap.set('v', '<leader>dp', ':bp<CR>', { desc = 'Previous Buffer' })
+vim.keymap.set('n', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
+vim.keymap.set('v', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
