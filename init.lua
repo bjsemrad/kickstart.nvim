@@ -832,6 +832,17 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    variant = 'main',
+    priority = 1000,
+    enable = { terminal = true },
+    -- init = function()
+    --   vim.cmd.colorscheme 'rose-pine'
+    -- end,
+  },
+
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
