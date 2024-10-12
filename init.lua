@@ -178,6 +178,15 @@ vim.keymap.set('v', '<C-b>n', ':bn<CR>', { desc = 'Next Buffer' })
 vim.keymap.set('n', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
 vim.keymap.set('v', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
 
+vim.keymap.set('v', '<C-b>p', ':bp<CR>', { desc = 'Previous Buffer' })
+
+vim.keymap.set('v', '<C-Up>', ':m -2<CR>', { desc = 'Move Line Up' })
+vim.keymap.set('n', '<C-Up>', ':m -2<CR>', { desc = 'Move Line Up' })
+vim.keymap.set('i', '<C-Up>', ':m -2<CR>', { desc = 'Move Line Up' })
+
+vim.keymap.set('v', '<C-Down>', ':m +1<CR>', { desc = 'Move Line Down' })
+vim.keymap.set('n', '<C-Down>', ':m +1<CR>', { desc = 'Move Line Down' })
+vim.keymap.set('i', '<C-Down>', ':m +1<CR>', { desc = 'Move Line Down' })
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
