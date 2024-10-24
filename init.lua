@@ -813,6 +813,19 @@ require('lazy').setup({
       }
     end,
   },
+  {
+    'navarasu/onedark.nvim',
+    priority = 1000, -- Ensure it loads first
+    config = function()
+      require('onedark').setup {
+        -- Main options --
+        style = 'darker',
+      }
+    end,
+    init = function()
+      vim.cmd.colorscheme 'onedark'
+    end,
+  },
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
@@ -847,9 +860,9 @@ require('lazy').setup({
         },
       }
     end,
-    init = function()
-      vim.cmd.colorscheme 'catppuccin'
-    end,
+    -- init = function()
+    --   vim.cmd.colorscheme 'catppuccin'
+    -- end,
   },
 
   {
@@ -909,6 +922,9 @@ require('lazy').setup({
         },
 
         palette = {
+          main = {
+            pine = '#3E8FB0',
+          },
           -- Override the builtin palette per variant
           -- moon = {
           --     base = '#18191a',
@@ -928,9 +944,9 @@ require('lazy').setup({
           -- end
           --
           -- Change palette colour
-          if highlight.fg == palette.pine then
-            highlight.fg = palette.love
-          end
+          -- if highlight.fg == palette.pine then
+          --   highlight.fg = palette.love
+          -- end
         end,
       }
     end,
