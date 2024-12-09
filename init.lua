@@ -573,7 +573,7 @@ require('lazy').setup({
         -- },
         gopls = {},
         -- pyright = {},
-        rust_analyzer = {},
+        -- rust_analyzer = {},
         cmake = {},
         csharp_ls = {},
         cssls = {},
@@ -593,6 +593,7 @@ require('lazy').setup({
         zls = {},
         regols = {},
         cpptools = {},
+        codelldb = {},
 
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -657,6 +658,29 @@ require('lazy').setup({
         },
       }
     end,
+  },
+  { -- rusttooling
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+    config = function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      -- vim.keymap.set('n', '<leader>a', function()
+      --   vim.cmd.RustLsp 'codeAction' -- supports rust-analyzer's grouping
+      --   -- or vim.lsp.buf.codeAction() if you don't want grouping.
+      -- end, { silent = true, buffer = bufnr })
+      vim.keymap.set(
+        'n',
+        'K', -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+        function()
+          vim.cmd.RustLsp { 'hover', 'actions' }
+        end,
+        { silent = true, buffer = bufnr }
+      )
+    end,
+  },
+  {
+    'mfussenegger/nvim-dap',
   },
 
   { -- Autoformat
