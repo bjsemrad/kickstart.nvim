@@ -677,6 +677,24 @@ require('lazy').setup({
         end,
         { silent = true, buffer = bufnr }
       )
+
+      vim.api.nvim_create_autocmd('BufEnter', {
+        pattern = '*.rs',
+        callback = function()
+          vim.fn.jobstart('cargo watch -x build', {
+            on_stdout = function(_, data)
+              for _, line in ipairs(data) do
+                print(line)
+              end
+            end,
+            on_stderr = function(_, data)
+              for _, line in ipairs(data) do
+                print(line)
+              end
+            end,
+          })
+        end,
+      })
     end,
   },
   {
