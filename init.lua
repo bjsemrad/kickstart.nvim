@@ -169,6 +169,9 @@ vim.keymap.set('n', '<CA-Up>', '<C-w><C-k>', { desc = 'Move focus to the upper w
 vim.keymap.set('n', '<leader>c/', 'gcc', { desc = 'Toggle Comment', remap = true })
 vim.keymap.set('v', '<leader>c/', 'gc', { desc = 'Toggle comment', remap = true })
 
+vim.keymap.set('n', '<C-/>', 'gcc', { desc = 'Toggle Comment', remap = true })
+vim.keymap.set('v', '<C-/>', 'gc', { desc = 'Toggle comment', remap = true })
+
 vim.keymap.set('n', '<C-b>x', ':bd<CR>', { desc = 'Close Buffer' })
 vim.keymap.set('v', '<C-b>x', ':bd<CR>', { desc = 'Close Buffer' })
 
