@@ -578,7 +578,7 @@ require('lazy').setup({
         -- pyright = {},
         -- rust_analyzer = {},
         cmake = {},
-        csharp_ls = {},
+        --csharp_ls = {},
         cssls = {},
         docker_compose_language_service = {},
         dockerls = {},
@@ -1007,8 +1007,9 @@ require('lazy').setup({
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
-  { -- Collection of various small independent plugins/modules
+  {
     'echasnovski/mini.nvim',
+    version = '*', -- Collection of various small independent plugins/modules
     config = function()
       -- Better Around/Inside textobjects
       --
@@ -1024,6 +1025,8 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      require('mini.pairs').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -1102,7 +1105,7 @@ require('lazy').setup({
   require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
+  --  MINI REPLACED require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
