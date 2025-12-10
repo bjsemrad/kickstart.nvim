@@ -597,6 +597,9 @@ require('lazy').setup({
         regols = {},
         cpptools = {},
         codelldb = {},
+        qmlls = {
+          cmd = { '/etc/profiles/per-user/brian/bin/qmlls', '-E' },
+        },
 
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -657,6 +660,9 @@ require('lazy').setup({
             }
 
             require('lspconfig').jdtls.setup {}
+          end,
+          qmlls = function()
+            require('lspconfig').qmlls.setup {}
           end,
         },
       }
@@ -860,6 +866,18 @@ require('lazy').setup({
           { name = 'luasnip' },
           { name = 'path' },
         },
+      }
+    end,
+  },
+  {
+    'Bishop-Fox/colorblocks.nvim',
+    config = function()
+      require('colorblocks').setup {
+        symbol = '󱡕',
+        virt_text_pos = 'eol',
+        mode = 'fg',
+        section = { 'S', '  ', 'The color is: ', 'H' },
+        filetypes = { 'lua', 'css', 'qml', 'json' },
       }
     end,
   },
@@ -1072,6 +1090,7 @@ require('lazy').setup({
         'kotlin',
         'sql',
         'nix',
+        'qmljs',
       },
 
       -- Autoinstall languages that are not installed
