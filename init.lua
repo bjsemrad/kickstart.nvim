@@ -598,7 +598,7 @@ require('lazy').setup({
         cpptools = {},
         codelldb = {},
         qmlls = {
-          cmd = { '/etc/profiles/per-user/brian/bin/qmlls', '-E' },
+          cmd = { '/etc/profiles/per-user/brian/bin/qmlls' },
         },
 
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -892,6 +892,13 @@ require('lazy').setup({
     end,
     init = function()
       vim.cmd.colorscheme 'onedark'
+    end,
+  },
+  {
+    'ellisonleao/gruvbox.nvim',
+    priority = 1000, -- Ensure it loads first
+    config = function()
+      require('gruvbox').setup { contrast = 'hard' }
     end,
   },
   { -- You can easily change to a different colorscheme.
