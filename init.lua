@@ -887,7 +887,7 @@ require('lazy').setup({
     config = function()
       require('onedark').setup {
         -- Main options --
-        style = 'warmer', --darker',
+        style = 'darker',
       }
     end,
     init = function()
