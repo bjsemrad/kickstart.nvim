@@ -898,7 +898,37 @@ require('lazy').setup({
     'ellisonleao/gruvbox.nvim',
     priority = 1000, -- Ensure it loads first
     config = function()
-      require('gruvbox').setup { contrast = 'hard' }
+      require('gruvbox').setup {} --contrast = 'hard' }
+    end,
+  },
+  {
+    'bjsemrad/matteblack.nvim',
+    lazy = false,
+    priority = 1000,
+    -- init = function()
+    -- vim.cmd.colorscheme 'matteblack'
+    -- end,
+  },
+  {
+    'loctvl842/monokai-pro.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('monokai-pro').setup()
+    end,
+  },
+  {
+    'rebelot/kanagawa.nvim',
+    priority = 1000,
+    config = function()
+      require('kanagawa').setup {
+        theme = 'dragon', -- this selects the Dragon variant specifically
+        background = {
+          dark = 'dragon',
+          light = 'lotus',
+        },
+      }
+      -- vim.cmd 'colorscheme kanagawa-dragon'
     end,
   },
   { -- You can easily change to a different colorscheme.
